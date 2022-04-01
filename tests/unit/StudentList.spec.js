@@ -1,9 +1,10 @@
 import { mount } from '@vue/test-utils'
-import StudentList from '@/components/StudentList.vue'
+import HomeView from '@/views/HomeView.vue'
 
-describe('StudentList.vue', () => {
-  it("Should give an average out of 100", () => {
-    const wrapper = mount(StudentList);
-    expect(wrapper.find(averageGrade()).toBeLessThanOrEqualTo(100);
-  })
-})
+
+describe('HomeView.vue', () => {
+  test("Reads entries on search", () => {
+    const wrapper = mount(HomeView);
+    expect(wrapper.find(entry)).toHaveReturned()
+  });
+});
