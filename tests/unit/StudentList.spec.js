@@ -2,10 +2,8 @@ import { mount } from '@vue/test-utils'
 import StudentList from '@/components/StudentList.vue'
 
 describe('StudentList.vue', () => {
-  it('has a student grades list with only eight numbers', () => {
-    const wrapper = mount(StudentList, {
-      averageGrade()
-    })
-    expect(wrapper).toBeEqualToOrLessThan(100);
+  it("Should give an average out of 100", () => {
+    const wrapper = mount(StudentList);
+    expect(wrapper.find(averageGrade()).toBeLessThanOrEqualTo(100);
   })
 })

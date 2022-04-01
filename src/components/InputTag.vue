@@ -24,5 +24,6 @@ export default defineComponent({
 .tag-input {
   width: 200px;
   align-self: center;
+  height: 100px;
 }
 </style>

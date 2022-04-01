@@ -5,12 +5,17 @@
         <div class="robot">
           <img :src="student.pic">
         </div>
-        <button class="trigger" @click="trigger = !trigger"></button>
+        <button id="plus-minus" class="trigger" @click="trigger = !trigger">
+          <div class="line-container">
+            <div class="horizontal"></div>
+            <div class="vertical" :class="{ tests: trigger }"></div>
+          </div>
+        </button>
         <h1>{{ student.firstName }} {{ student.lastName }}</h1>
         <p>Email: {{ student.email }}</p><br>
         <p>Company: {{ student.company }}</p><br>
         <p>Skill: {{ student.skill }}</p><br>
-        <p>Average: {{ averageGrade }}</p>
+        <p>Average: {{ average }}</p>
         <InputTag />
         <br><br>
         <ul v-show="trigger === true">
@@ -25,7 +30,7 @@
 
 <script>
 import InputTag from "@/components/InputTag.vue";
-import { sum } from "lodash";
+import { sum } from 'lodash';
 
 export default {
   name: 'StudentList',
@@ -40,13 +45,8 @@ export default {
   },
   data() {
     return {
-      testvalue: 1,
-      trigger: false
-    }
-  },
-  computed: {
-    averageGrade() {
-      return (sum(this.student.grades)/this.student.grades.length).toFixed(3)
+      trigger: false,
+      average: (sum(this.student.grades)/this.student.grades.length).toFixed(3) + "%"
     }
   }
 }
@@ -68,8 +68,26 @@ export default {
 
   .trigger {
     width: 70px;
-    height: 30px;
+    height: 70px;
     flex-direction: row-reverse;
     align-self: flex-end;
+    background: none;
+    border: none !important;
+    align-items: center;
+  }
+
+  .horizontal, .vertical {
+    background-color: grey;
+    width: 100%;
+    height: 4px;
+    pointer-events: auto;
+  }
+
+  .vertical {
+    transform: rotate(90deg);
+  }
+
+  .vertical.tests {
+    transform: rotate(180deg);
   }
 </style>
