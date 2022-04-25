@@ -11,7 +11,7 @@
             <div class="vertical" :class="{ tests: trigger }"></div>
           </div>
         </button>
-        <h1>{{ student.firstName }} {{ student.lastName }}</h1>
+        <h1>{{ fullName }}</h1>
         <p>Email: {{ student.email }}</p><br>
         <p>Company: {{ student.company }}</p><br>
         <p>Skill: {{ student.skill }}</p><br>
@@ -31,6 +31,7 @@
 <script>
 import InputTag from "@/components/InputTag.vue";
 import { sum } from 'lodash';
+import { computed } from 'vue';
 
 export default {
   name: 'StudentList',
@@ -43,10 +44,19 @@ export default {
       required: true
     }
   },
+  setup(props ) {
+    const average = computed(() => (sum(props.student.grades)/props.student.grades.length).toFixed(3) + "%")
+
+    const fullName = props.student.firstName + " " + props.student.lastName
+
+    return {
+      average,
+      fullName
+    }
+  },
   data() {
     return {
-      trigger: false,
-      average: (sum(this.student.grades)/this.student.grades.length).toFixed(3) + "%"
+      trigger: false
     }
   }
 }

@@ -2,9 +2,9 @@
   <div class="students">
     <input v-model="entry" class="searches" placeholder="Search by Name"><br>
     <input v-model="tagSearch" class="searches" placeholder="Search by Tag"><br><br>
-    <StudentList v-show="student.firstName.toLowerCase().includes(entry.toLowerCase()) ||
-    student.lastName.toLowerCase().includes(entry.toLowerCase())"
-    v-for="student in students" :key="student.id" :student="student"/>
+    <StudentList
+    v-for="student in students" :key="student.id" :student="student"
+    v-show="student.firstName.toLowerCase().includes(entry.toLowerCase()) || student.lastName.toLowerCase().includes(entry.toLowerCase())" />
   </div>
 </template>
 
