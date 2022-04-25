@@ -1,4 +1,4 @@
-# front-end-assessment
+# Small Vue Project
 
 ## Project setup
 ```
