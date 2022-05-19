@@ -16,7 +16,7 @@
         <p>Company: {{ student.company }}</p><br>
         <p>Skill: {{ student.skill }}</p><br>
         <p>Average: {{ average }}</p>
-        <InputTag />
+        <InputTag :tags="tags" />
         <br><br>
         <ul v-show="trigger === true">
           <li v-for="(grade, index) in student.grades" :key="grade" >
@@ -28,38 +28,24 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, inject } from "vue";
 import InputTag from "@/components/InputTag.vue";
-import { sum } from 'lodash';
-import { computed } from 'vue';
 
-export default {
-  name: 'StudentList',
-  components: {
-    InputTag
-  },
-  props: {
-    student: {
-      type: Object,
-      required: true
-    }
-  },
-  setup(props ) {
-    const average = computed(() => (sum(props.student.grades)/props.student.grades.length).toFixed(3) + "%")
 
-    const fullName = props.student.firstName + " " + props.student.lastName
+const props = defineProps({
+  student: Object,
+  fullName: String,
+  average: String
+})
 
-    return {
-      average,
-      fullName
-    }
-  },
-  data() {
-    return {
-      trigger: false
-    }
-  }
-}
+const tags = inject("tags")
+
+props.student
+props.fullName
+props.average
+
+const trigger =  ref(false)
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

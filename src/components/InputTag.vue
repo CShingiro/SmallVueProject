@@ -3,21 +3,12 @@
                      placeholder="input tags" />
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
+import { inject } from 'vue';
 import Vue3InputTags from 'vue3-input-tags';
 
-export default defineComponent({
-  components: {
-    Vue3InputTags
-  },
+const tags = inject("tags")
 
-  data() {
-    return {
-      tags: []
-    }
-  },
-})
 </script>
 
 <style scoped>

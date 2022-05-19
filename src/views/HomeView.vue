@@ -3,35 +3,36 @@
     <input v-model="entry" class="searches" placeholder="Search by Name"><br>
     <input v-model="tagSearch" class="searches" placeholder="Search by Tag"><br><br>
     <StudentList
-    v-for="student in students" :key="student.id" :student="student"
-    v-show="student.firstName.toLowerCase().includes(entry.toLowerCase()) || student.lastName.toLowerCase().includes(entry.toLowerCase())" />
+      v-for="student in studentStore.students" :key="student.id" :student="student.id"
+      :average="average(student.grades)" :fullName="fullName(student.firstName, student.lastName)"
+      v-show="fullName(student.firstName, student.lastName).toLowerCase().includes(entry.toLowerCase()) || tags.toLowerCase().includes(tagSearch.toLowerCase())"
+    />
   </div>
 </template>
 
-<script>
+<script setup>
 // @ is an alias to /src
 import StudentList from '@/components/StudentList.vue';
+import { ref, reactive, provide } from "vue";
+import { useStudentStore } from "@/store/StudentStore";
+import { sum } from "lodash";
 
-export default {
-  name: 'HomeView',
-  components: {
-    StudentList
-  },
-  data() {
-    return {
-      entry: "",
-      tagSearch: ""
-    }
-  },
-  created() {
-    this.$store.dispatch("createStudents");
-  },
-  computed: {
-    students() {
-      return this.$store.state.students.students;
-    }
-  }
+const tags = reactive([])
+const entry = ref("")
+const tagSearch =  ref("")
+const studentStore = useStudentStore()
+
+studentStore.createStudents()
+
+function average(...input) {
+  return sum(input)/input.length + "%"
 }
+
+function fullName(firstName,lastName) {
+  return firstName + " " + lastName
+}
+
+provide(tags)
 </script>
 
 <style scoped>
