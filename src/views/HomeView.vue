@@ -32,7 +32,7 @@ function fullName(firstName,lastName) {
   return firstName + " " + lastName
 }
 
-provide(tags)
+provide("tags",tags)
 </script>
 
 <style scoped>

@@ -29,17 +29,14 @@
 </template>
 
 <script setup>
-import { ref, inject } from "vue";
+import { ref } from "vue";
 import InputTag from "@/components/InputTag.vue";
-
 
 const props = defineProps({
   student: Object,
   fullName: String,
   average: String
 })
-
-const tags = inject("tags")
 
 props.student
 props.fullName
