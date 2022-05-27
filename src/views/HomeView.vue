@@ -3,7 +3,7 @@
     <input v-model="entry" class="searches" placeholder="Search by Name"><br>
     <input v-model="tagSearch" class="searches" placeholder="Search by Tag"><br><br>
     <StudentList
-      v-for="student in studentStore.students" :key="student.id" :student="student.id"
+      v-for="student in studentStore.students" :key="student.id" :student="student"
       :average="average(student.grades)" :fullName="fullName(student.firstName, student.lastName)"
       v-show="fullName(student.firstName, student.lastName).toLowerCase().includes(entry.toLowerCase()) || tags.toLowerCase().includes(tagSearch.toLowerCase())"
     />
@@ -25,7 +25,7 @@ const studentStore = useStudentStore()
 studentStore.createStudents()
 
 function average(...input) {
-  return sum(input)/input.length + "%"
+  return (sum(input)/input.length).toString() + "%"
 }
 
 function fullName(firstName,lastName) {

@@ -34,8 +34,8 @@ import InputTag from "@/components/InputTag.vue";
 
 const props = defineProps({
   student: Object,
-  fullName: String,
-  average: String
+  fullName: Function,
+  average: Function
 })
 
 props.student
