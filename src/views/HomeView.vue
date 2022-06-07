@@ -4,8 +4,8 @@
     <input v-model="tagSearch" class="searches" placeholder="Search by Tag"><br><br>
     <StudentList
       v-for="student in studentStore.students" :key="student.id" :student="student"
-      :average="average(student.grades)" :fullName="fullName(student.firstName, student.lastName)"
-      v-show="fullName(student.firstName, student.lastName).toLowerCase().includes(entry.toLowerCase()) || tags.toLowerCase().includes(tagSearch.toLowerCase())"
+      :average="average = student.grades + '%'" :fullName="fullName = student.firstName + ' ' + student.lastName"
+      v-show="fullName.toLowerCase().includes(entry.toLowerCase()) || tags.toLowerCase().includes(tagSearch.toLowerCase())"
     />
   </div>
 </template>
@@ -13,24 +13,39 @@
 <script setup>
 // @ is an alias to /src
 import StudentList from '@/components/StudentList.vue';
-import { ref, reactive, provide } from "vue";
+import { ref, reactive, provide, onMounted, computed, watch } from "vue";
 import { useStudentStore } from "@/store/StudentStore";
 import { sum } from "lodash";
 
 const tags = reactive([])
 const entry = ref("")
 const tagSearch =  ref("")
+const array = reactive([])
+const firstName = ref("")
+const lastName = ref("")
 const studentStore = useStudentStore()
 
-studentStore.createStudents()
+onMounted(()=> {
+  studentStore.createStudents()
+})
 
-function average(...input) {
-  return (sum(input)/input.length).toString() + "%"
-}
+const average = computed({
+  get() {
+    return (sum(array)/array.length).toFixed(3)
+  },
+  set(input) {
+    input = array
+  }
+})
 
-function fullName(firstName,lastName) {
-  return firstName + " " + lastName
-}
+const fullName = computed({
+  get() {
+    return firstName.value + " " + lastName.value
+  },
+  set(fullName) {
+    [firstName.value,lastName.value] = fullName.split(" ")
+  }
+})
 
 provide("tags",tags)
 </script>
